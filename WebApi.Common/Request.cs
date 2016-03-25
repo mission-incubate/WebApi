@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace WebApi.Common
 {
-    public class Request
+    public class BaseRequest
     {
-        public PageContext PageContext { get; set; }
+        public int Id { get; set; }
         public UserContext UserContext { get; set; }
-        public List<Param> Params { get; set; }
     }
 
-    public class Param
+    public class Request<Tk, Tv> : BaseRequest where Tk : struct where Tv : BaseDTO
     {
-        public string Key { get; set; }
-        public Object Value { get; set; }
+        public PageContext PageContext { get; set; }
+        public List<Param<Tk, Tv>> Params { get; set; }
+    }
+
+    public class Param<Tk, Tv> where Tk : struct where Tv : BaseDTO
+    {
+        public Tk Key { get; set; }
+        public Tv Value { get; set; }
     }
 
     public class PageContext
